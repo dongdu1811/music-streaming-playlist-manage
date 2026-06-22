@@ -127,6 +127,11 @@ class CircularLinkedList:
         self.head = None
         self.tail = None
         self.size = 0
+    
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
 
     def is_empty(self):
         return self.size == 0
@@ -337,6 +342,24 @@ class MusicPlayer:
                 return
             current = current.next
         print("Song not found in Library!")
+
+    def play_favorites(self):
+
+        if self.favorites.is_empty():
+            print("Favorites is empty!")
+            return
+
+        current = self.favorites.head
+
+        print("\nPLAYING FAVORITES")
+
+        while current:
+            print(f"Now Playing: {current.song}")
+            self.recently_played.push(current.song)
+
+            input("Press Enter for next song...")
+
+            current = current.next
         
     def find_by_title(self, title):
         title = title.lower().replace(" ", "")
@@ -487,10 +510,11 @@ class MusicPlayer:
 
             print("  --- FAVORITES ---")
             print("  10.  View Favorites")
+            print("  11.  Play Favorites")
 
             print("  --- MANAGE ---")
-            print("  11. Remove a Song")
-            print("  12. Save Data")
+            print("  12. Remove a Song")
+            print("  13. Save Data")
 
             print("  0.  Exit")
             print("=" * 60)
@@ -518,8 +542,10 @@ class MusicPlayer:
             elif choice == '10':
                 self.favorites.display("FAVORITES")
             elif choice == '11':
-                self.remove_song()
+                self.play_favorites()
             elif choice == '12':
+                self.remove_song()
+            elif choice == '13':
                 self.save_to_file()
             elif choice == '0':
                 self.save_to_file()
